@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file alias="glyphs-poly--sparkles.svg">../../assets/icons/glyphs-poly-sparkles.svg</file>
+        <file alias="streamline-color--ai-edit-spark.svg">../../assets/icons/streamline-color--ai-edit-spark.svg</file>
+        <file alias="ic--round-refresh.svg">../../assets/icons/ic--round-refresh.svg</file>
+        <file alias="ic--round-check.svg">../../assets/icons/ic--round-check.svg</file>
+        <file alias="ic--round-expand-more-white.svg">../../assets/icons/ic--round-expand-more-white.svg</file>
+        <file alias="ic--round-expand-more-black.svg">../../assets/icons/ic--round-expand-more-black.svg</file>
+    </qresource>
+</RCC>
