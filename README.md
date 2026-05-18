@@ -1,6 +1,10 @@
 # ClipFlow
 
-ClipFlow 是一个 Windows 桌面效率工具（Qt 6 / C++），提供托盘常驻与全局快捷键能力：通过区域截图触发 AI 识别与处理链路，并将结果自动写入剪贴板，提升“截图→内容复用”的效率。
+ClipFlow 是一个 Windows 桌面效率工具（Qt 6 / C++），提供托盘常驻与全局快捷键能力：通过区域截图触发 AI 识别与处理链路（文本OCR、翻译），并将结果自动写入剪贴板，提升“截图→内容复用”的效率。
+
+<img src="README.assets/image-20260518110631815.png" alt="image-20260518110631815" style="zoom: 50%;" />
+
+<img src="README.assets/image-20260518110619328.png" alt="image-20260518110619328" style="zoom:50%;" />
 
 ## 功能特性
 
@@ -13,17 +17,27 @@ ClipFlow 是一个 Windows 桌面效率工具（Qt 6 / C++），提供托盘常�
     - **共用一个快捷键**：仅注册一个快捷键，触发功能由“共用快捷键功能”决定（截图转 Markdown / 截图翻译）
     - **分别设置两个快捷键**：分别配置“截图转 Markdown”与“截图翻译”的快捷键，并可单独启用/禁用
   - 快捷键冲突时会回退到默认组合键
+
+<img src="README.assets/image-20260518110835342.png" alt="image-20260518110835342" style="zoom:50%;" />
+
 - **截图转 Markdown（视觉模型）**
   - 区域截图（遮罩选区，Esc 取消）
   - 将截图上传到 OpenAI 兼容接口（Vision）
   - 生成 Markdown 并自动写入剪贴板
+
+<img src="README.assets/image-20260518111033922.png" alt="image-20260518111033922" style="zoom:50%;" />
+
 - **截图翻译（视觉模型）**
   - 区域截图 → 识别图片文字 → 翻译到目标语种
   - 翻译结果自动写入剪贴板
   - 可配置目标语种（例如：简体中文 / English / 日本語）
-- **文本翻译（窗口模式）**
+
+<img src="README.assets/image-20260518111107343.png" alt="image-20260518111107343" style="zoom:50%;" />
+
+- **文本OCR与翻译（窗口模式）**
+  - 支持手动上传、拖拽、一键粘贴图片
   - 支持自动检测与多种翻译方向
-  - 一键复制翻译结果到剪贴板
+  - 一键复制文本识别/翻译结果到剪贴板
 - **主题（外观）**
   - 暗黑 / 明亮 / 跟随系统
 
@@ -37,8 +51,7 @@ ClipFlow 是一个 Windows 桌面效率工具（Qt 6 / C++），提供托盘常�
 ## 配置文件（config.json）
 
 - 程序读取/写入位置：与 `ClipFlow.exe` 同目录的 `config.json`
-- 该文件可能包含 API Key，不建议纳入版本管理
-- `.gitignore` 已忽略 `config.json`
+- 该文件可能包含 API Key，注意防止分享泄露
 
 关键字段示例（完整示例可参考 `build/bin/config.json`）：
 
@@ -112,7 +125,7 @@ ClipFlow/
 ```
 
 说明：
-- `build/`、`dist/` 通常不纳入版本管理；`dist/` 用于产出可分发目录，`build/` 仅用于本机开发构建。
+- `dist/` 用于产出可分发目录，`build/` 仅用于本机开发构建。
 - Qt 资源（`resources.qrc` + `app.rc`）会编译进 `ClipFlow.exe`，运行时不需要额外拷贝图标文件。
 
 ## 开发与发布（Build / Release）
@@ -135,7 +148,7 @@ ClipFlow/
 
 ### 本地构建（开发者）
 
-在项目根目录执行：
+在项目根目录执行（实际指令需要根据你的本地QT安装路径做修改）：
 
 ```powershell
 D:\Soft-Programs\Qt\Tools\CMake_64\bin\cmake.exe -S . -B build -G Ninja `
@@ -199,8 +212,3 @@ D:\Soft-Programs\Qt\6.11.1\mingw_64\bin\windeployqt.exe .\dist\ClipFlow\ClipFlow
 ```powershell
 Remove-Item -Recurse -Force .\build
 ```
-
-## 图标资源说明
-
-- exe 文件图标：通过 `resources/windows/app.rc` 将 `assets/icons/*.ico` 编译进 exe
-- 窗口与托盘图标：通过 `resources/qt/resources.qrc` 将 SVG 编译进 exe，运行时用 `QIcon(":/assets/xxx.svg")` 加载
